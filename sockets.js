@@ -6,6 +6,7 @@ var exec = child_process.exec;
 
 var port = 1883;
 var host = 'atlas.hasi';
+var topic = 'hasi/sockets/+/set_state';
 
 var sockets = {
 	1: { 'on': 15, 'off': 14 },
@@ -14,7 +15,7 @@ var sockets = {
 };
 
 client = mqtt.createClient(port, host);
-client.subscribe('hasi/sockets/+/set_state');
+client.subscribe(topic);
 
 client.on('message', function (topic, message) {
 	socket = parseInt(topic.split('/')[2]);
