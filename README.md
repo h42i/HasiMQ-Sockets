@@ -13,8 +13,8 @@ Node.js based implementation of an MQTT-socket to i2c interface.
 HasiMQ-Sockets runs on an ARMv6 system and only Node.js version <= 0.11 is
 supported.
 
-To install the modules use
-> npm install i2c@0.1.8
+To install the modules run
+> $ npm install i2c@0.1.8
 
 # Issues
 
