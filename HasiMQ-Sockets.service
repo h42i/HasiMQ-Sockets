@@ -1,0 +1,14 @@
+[Unit]
+Description=Controls the sockets
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+SyslogIdentifier=HasiMQ-Sockets
+WorkingDirectory=/home/hasi/HasiMQ-Sockets/
+ExecStart=/home/hasi/HasiMQ-Sockets/sockets.js
+
+[Install]
+WantedBy=multi-user.target
