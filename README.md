@@ -16,6 +16,18 @@ supported.
 To install the modules run
 > $ npm install i2c@0.1.8
 
+Adjust the paths in the HasiMQ-Sockets.service file and copy the file to either
+> /usr/lib/systemd/system/
+or
+> /etc/systemd/system/
+
+# Run
+
+Enable systemd service via
+> $ systemctl enable HasiMQ-Sockets.service
+and start with
+> $ systemctl start HasiMQ-Sockets.service
+
 # Issues
 
 Currently neither keepalive signal or success codes are implemented for the
