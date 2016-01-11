@@ -21,7 +21,20 @@ var sockets = {
     8: { 'type': 'dec', 'on_code': 11, 'off_code': 10, 'pulse_length': 340, 'repeats': 15 }
 };
 
+var socket_states = {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false
+};
+
 var locked = false;
+
+console.log('Starting MQTT client.');
 
 var client = mqtt.createClient(port, host);
 client.subscribe(topic);
@@ -30,6 +43,8 @@ var address = 0x23;
 var wire = new i2c(address, { device: '/dev/i2c-1' });
 
 client.on('message', function (topic, message) {
+    console.log('Received message on topic ' + topic + ': ' + message + '.');
+
     socket = parseInt(topic.split('/')[2]);
 
     if (socket in sockets) {
@@ -78,9 +93,11 @@ client.on('message', function (topic, message) {
                 sleep.usleep(sockets[socket]['repeats'] * 60000);
             }
 
-            locked = false;
+            socket_states[socket] = message === 'on' ? true : false;
 
-            client.publish('hasi/sockets/' + socket + '/get', message);
+            locked = false;
         }
+
+        client.publish('hasi/sockets/' + socket + '/get', socket_states[socket] ? 'on' : 'off');
     }
 });
